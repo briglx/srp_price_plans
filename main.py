@@ -2,6 +2,7 @@
 """Main script for SRP Price Plans."""
 import argparse
 import csv
+from datetime import datetime as dt
 import os
 
 from dotenv import load_dotenv
@@ -12,6 +13,8 @@ def main(usage_path):
     assert len(usage_path) > 0
     print(f"Using {usage_path}")
 
+    format_data = "%m/%d/%Y %I:%M %p"
+
     with open(usage_path, encoding="utf-8") as usage_file:
         reader = csv.reader(usage_file, delimiter=",")
 
@@ -19,7 +22,13 @@ def main(usage_path):
         next(reader)
 
         max_usage = 0.0
-        for date_str, hour_str, cost, usage in reader:
+        last_datetime = dt.now()
+        for date_str, hour_str, _, usage in reader:
+            # 4/1/2021 2:00 AM
+            cur_datetime = dt.strptime(f"{date_str} {hour_str}", format_data)
+            if cur_datetime.date() != last_datetime.date():
+                last_datetime = cur_datetime
+                print(f"New Date: {last_datetime}")
             if float(usage) > max_usage:
                 max_usage = float(usage)
 

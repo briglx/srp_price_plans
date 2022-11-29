@@ -5,6 +5,48 @@ SRP Price Plans
 This project models srp monthly charges for various plans based on usage.
 
 
+Development
+===========
+
+Setup your dev environment by creating a virtual environment
+
+.. code-block:: bash
+
+    # Windows
+    # virtualenv \path\to\.venv -p path\to\specific_version_python.exe
+    # C:\Users\!Admin\AppData\Local\Programs\Python\Python310\python.exe -m venv .venv
+    # .venv\scripts\activate
+
+    # Linux
+    # virtualenv .venv /usr/local/bin/python3.10
+    # python3.10 -m venv .venv
+    # python3 -m venv .venv
+    python3 -m venv .venv
+    source .venv/bin/activate
+
+    # Update pip
+    python -m pip install --upgrade pip
+
+    deactivate
+
+Install dependencies and configure ``.env``.
+
+.. code-block:: bash
+
+    # Install dependencies
+    pip install -r requirements_dev.txt
+
+    # Replace settings in example.env
+    cp example.env .env
+
+Install locally for development and enable pre-commit scripts.
+
+.. code-block:: bash
+
+    pip install --editable .
+
+    pre-commit install
+
 Style Guidelines
 ----------------
 
@@ -53,8 +95,8 @@ Now that you have all test dependencies installed, you can run tests on the proj
 
     isort .
     codespell  --skip="./.*,*.csv,*.json,*.pyc,./docs/_build/*,./htmlcov/*"
-    black main.py 
-    flake8 main.py 
-    pylint main.py 
+    black main.py
+    flake8 main.py
+    pylint main.py
     rstcheck README.rst
-    pydocstyle main.py 
+    pydocstyle main.py
